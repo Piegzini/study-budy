@@ -29,9 +29,9 @@ export const StyledGrade = styled.div`
 
   background-color: ${({ theme, average }) => {
     const numberAverage = parseFloat(average);
-    if (numberAverage > 4) return theme.colors.error;
+    if (numberAverage > 4) return theme.colors.success;
     if (numberAverage > 3) return theme.colors.warning;
-    if (average > 2) return theme.colors.success;
+    if (average > 2) return theme.colors.error;
     return theme.colors.grey;
   }};
 `;
