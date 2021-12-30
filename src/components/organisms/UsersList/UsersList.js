@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { users as usersData } from '../../../data/users';
 import UsersListItem from '../../molecules/UsersListItem/UsersListItem';
-import { StyledList, Wrapper } from './UserList.styles';
+import { StyledList } from './UserList.styles';
+import { Title } from '../../atoms/Title/Title';
 
-const mockAPI = (success) => {
+const mockAPI = () => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       if (usersData) {
@@ -35,14 +36,14 @@ const UsersList = () => {
   };
 
   return (
-    <Wrapper>
-      <h1>{isLoading ? 'Loading...' : 'Users List'}</h1>
+    <>
+      <Title>{isLoading ? 'Loading...' : 'Users List'}</Title>
       <StyledList>
         {users.map((user) => (
           <UsersListItem deleteUser={deleteUser} userData={user} key={user.name} />
         ))}
       </StyledList>
-    </Wrapper>
+    </>
   );
 };
 
