@@ -14,7 +14,6 @@ const Form = () => {
   const [formValues, setFormValues] = useState(initialFormState);
   const { handleAddUser } = useContext(UsersContext);
   const handleInputChange = (e) => {
-    console.log('dupa');
     setFormValues({
       ...formValues,
       [e.target.name]: e.target.value,
