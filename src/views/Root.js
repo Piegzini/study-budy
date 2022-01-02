@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Form from './Form';
 import MainTemplate from '../components/templates/MainTemplate/MainTemplate';
 import Dashboard from './Dashboard';
+import { UsersProvider } from '../Providers/UsersProvider';
 
 const Root = () => {
   return (
@@ -14,12 +15,14 @@ const Root = () => {
       <ThemeProvider theme={theme}>
         <GlobalStyles />
         <MainTemplate>
-          <Wrapper>
-            <Routes>
-              <Route exact path="/" element={<Dashboard />} />
-              <Route exact path="/add-user" element={<Form />} />
-            </Routes>
-          </Wrapper>
+          <UsersProvider>
+            <Wrapper>
+              <Routes>
+                <Route exact path="/" element={<Dashboard />} />
+                <Route exact path="/add-user" element={<Form />} />
+              </Routes>
+            </Wrapper>
+          </UsersProvider>
         </MainTemplate>
       </ThemeProvider>
     </Router>
