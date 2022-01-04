@@ -9,33 +9,33 @@ export const StyledNavigation = styled.nav`
   border-right: 1px solid ${({ theme }) => theme.colors.darkPurple};
   justify-content: flex-start;
   padding: 30px 0;
+  grid-row: 1 / 3;
+  grid-column: 1 / 1;
 `;
 
 export const StyledLogo = styled.div`
   background-color: ${({ theme }) => theme.colors.darkGrey};
-  height: 70px;
   width: 100%;
-  text-align: right;
+  height: 60px;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  margin-bottom: 20px;
+  justify-content: flex-end;
+  align-items: center;
+  margin-bottom: 30px;
   h1 {
-    margin: 0 20px;
-    font-size: 20px;
+    font-size: 15px;
     color: ${({ theme }) => theme.colors.white};
+    text-align: right;
+    margin-right: 20px;
   }
 `;
 
 export const StyledLink = styled(NavLink)`
-  cursor: pointer;
   font-weight: bold;
   text-decoration: none;
   color: ${({ theme }) => theme.colors.darkGrey};
   text-align: right;
   margin: 15px 20px 15px auto;
   position: relative;
-
   &.active {
     &::after {
       opacity: 1;
@@ -46,7 +46,7 @@ export const StyledLink = styled(NavLink)`
     transition: opacity 0.4s ease-in-out;
     content: '';
     position: absolute;
-    width: 17px;
+    width: 18px;
     height: 3px;
     top: 50%;
     transform: translateY(-50%);
