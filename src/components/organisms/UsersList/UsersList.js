@@ -1,13 +1,11 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import UsersListItem from '../../molecules/UsersListItem/UsersListItem';
 import { StyledList } from './UserList.styles';
 import { Title } from '../../atoms/Title/Title';
-import { UsersContext } from '../../../Providers/UsersProvider';
 
-const UsersList = () => {
-  const { users, deleteUser } = useContext(UsersContext);
+const UsersList = ({ users, deleteUser = () => console.log('usuwam') }) => {
   const [isLoading, setLoadingState] = useState(null);
-
+  console.log(users);
   return (
     <>
       <Title>{isLoading ? 'Loading...' : 'Users List'}</Title>
