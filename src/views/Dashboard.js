@@ -3,6 +3,7 @@ import { ViewWrapper } from '../components/molecules/ViewWrapper/ViewWrapper';
 import UsersList from '../components/organisms/UsersList/UsersList';
 import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
+import { TitleWrapper, Wrapper } from './DashBoard.styles';
 
 const Dashboard = ({ deleteUser }) => {
   const { id } = useParams();
@@ -22,10 +23,15 @@ const Dashboard = ({ deleteUser }) => {
       .catch((e) => console.log(e));
   }, [id, groups]);
   return (
-    <ViewWrapper>
-      <nav>{groups ? groups.map((group) => <Link to={`/group/${group}`}>{group} </Link>) : null}</nav>
-      <UsersList users={students} deleteUser={deleteUser} />
-    </ViewWrapper>
+    <Wrapper>
+      <TitleWrapper>
+        <h2>Group {id || groups[0]}</h2>
+        <nav>{groups ? groups.map((group) => <Link to={`/group/${group}`}>{group} </Link>) : null}</nav>
+      </TitleWrapper>
+      <ViewWrapper>
+        <UsersList users={students} deleteUser={deleteUser} />
+      </ViewWrapper>
+    </Wrapper>
   );
 };
 
