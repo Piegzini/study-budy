@@ -4,7 +4,6 @@ import GlobalStyles from '../assets/styles/globalStyles';
 import { theme } from '../assets/styles/theme';
 import { Wrapper } from './Root.styles';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import Form from './Form';
 import MainTemplate from '../components/templates/MainTemplate/MainTemplate';
 import Dashboard from './Dashboard';
 
@@ -21,7 +20,6 @@ const Root = () => {
                 <Route exact path=":id" element={<Dashboard />} />
                 <Route exact path="" element={<Dashboard />} />
               </Route>
-              <Route exact path="/add-user" element={<Form />} />
             </Routes>
           </Wrapper>
         </MainTemplate>
