@@ -6,18 +6,27 @@ const useStudents = ({ groupId = '' } = {}) => {
   const [groups, setGroups] = useState([]);
 
   useEffect(() => {
-    axios
-      .get(`/groups`)
-      .then(({ data }) => setGroups(data.groups))
-      .catch((e) => console.log(e));
+    (async () => {
+      try {
+        const { data } = await axios.get(`/groups`);
+        setGroups(data.groups);
+      } catch (e) {
+        console.log(e);
+      }
+    })();
   }, []);
 
   useEffect(() => {
     if (!groupId) return;
-    axios
-      .get(`/students/${groupId}`)
-      .then(({ data }) => setStudents(data.students))
-      .catch((e) => console.log(e));
+
+    (async () => {
+      try {
+        const { data } = await axios.get(`/students/${groupId}`);
+        setStudents(data.students);
+      } catch (e) {
+        console.log(e);
+      }
+    })();
   }, [groupId, groups]);
 
   const findStudents = async (searchPhrase) => {
