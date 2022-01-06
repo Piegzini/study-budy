@@ -1,19 +1,22 @@
 import { Input } from '../../atoms/Input/Input';
 import { InputWrapper, ResultItem, SearchBarWrapper, SearchingResults, StatusInfo } from './SearchBar.styles';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
-
+import useStudents from '../../../hooks/useStudents';
+import debounce from 'lodash.debounce';
 export const SearchBar = () => {
   const [searchingPhrase, setSearchingPhrase] = useState('');
   const [matchingStudents, setMatchingStudents] = useState([]);
+  const { findStudents } = useStudents();
+
+  const getMatchingStudents = debounce(async (e) => {
+    console.log('hej');
+    const { students } = await findStudents(searchingPhrase);
+    setMatchingStudents(students);
+  }, 300);
 
   useEffect(() => {
-    axios
-      .post('/students/search', {
-        info: searchingPhrase,
-      })
-      .then(({ data }) => setMatchingStudents(data.students))
-      .catch((e) => console.log(e));
+    if (!searchingPhrase) return;
+    getMatchingStudents();
   }, [searchingPhrase]);
 
   return (
@@ -26,9 +29,11 @@ export const SearchBar = () => {
       </StatusInfo>
       <InputWrapper>
         <Input value={searchingPhrase} onChange={(e) => setSearchingPhrase(e.target.value)} />
-        <SearchingResults isVisible={matchingStudents.length > 0 ? 'visible' : 'hidden'}>
-          {matchingStudents.length > 0 ? matchingStudents.map(({ name }) => <ResultItem>{name}</ResultItem>) : null}
-        </SearchingResults>
+        {searchingPhrase && matchingStudents.length ? (
+          <SearchingResults>
+            {matchingStudents.length > 0 ? matchingStudents.map(({ name, id }) => <ResultItem key={id}>{name}</ResultItem>) : null}
+          </SearchingResults>
+        ) : null}
       </InputWrapper>
     </SearchBarWrapper>
   );

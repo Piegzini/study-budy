@@ -17,6 +17,7 @@ export const handlers = [
 
   rest.post('/students/search', (req, res, ctx) => {
     const { info } = req.body;
+    console.log(info.split('').join(''));
     const matchingStudents = info.split('').join('') !== '' ? students.filter((user) => user.name.toLowerCase().includes(info.toLowerCase())) : [];
     return res(ctx.status(200), ctx.json({ students: matchingStudents }));
   }),

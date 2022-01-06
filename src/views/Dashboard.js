@@ -1,27 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { ViewWrapper } from '../components/molecules/ViewWrapper/ViewWrapper';
 import UsersList from '../components/organisms/UsersList/UsersList';
-import { Link, useParams } from 'react-router-dom';
-import axios from 'axios';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import { TitleWrapper, Wrapper } from './DashBoard.styles';
+import useStudents from '../hooks/useStudents';
 
-const Dashboard = ({ deleteUser }) => {
+const Dashboard = () => {
+  const { groups } = useStudents();
   const { id } = useParams();
-  const [students, setStudents] = useState([]);
-  const [groups, setGroups] = useState([]);
-  useEffect(() => {
-    axios
-      .get(`/groups`)
-      .then(({ data }) => setGroups(data.groups))
-      .catch((e) => console.log(e));
-  }, []);
 
-  useEffect(() => {
-    axios
-      .get(`/students/${id || groups[0]}`)
-      .then(({ data }) => setStudents(data.students))
-      .catch((e) => console.log(e));
-  }, [id, groups]);
+  let navigate = useNavigate();
+  if (!id && groups.length > 0) navigate(`/group/${groups[0]}`);
+
   return (
     <Wrapper>
       <TitleWrapper>
@@ -29,7 +19,7 @@ const Dashboard = ({ deleteUser }) => {
         <nav>{groups ? groups.map((group) => <Link to={`/group/${group}`}>{group} </Link>) : null}</nav>
       </TitleWrapper>
       <ViewWrapper>
-        <UsersList users={students} deleteUser={deleteUser} />
+        <UsersList />
       </ViewWrapper>
     </Wrapper>
   );

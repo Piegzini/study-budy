@@ -27,7 +27,6 @@ export const SearchingResults = styled.ul`
   z-index: 1000;\
   max-height: 400px;
   overflow-y: scroll;
-  visibility: ${({ isVisible }) => isVisible};
   width: 100%;
   position: absolute;
   top: 30px;
