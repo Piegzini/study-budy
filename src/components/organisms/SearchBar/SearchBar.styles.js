@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Input } from '../../atoms/Input/Input';
+import { isVisible } from '@testing-library/user-event/dist/utils';
 
 export const SearchBarWrapper = styled.div`
   grid-row: 1 / 2;
@@ -24,6 +25,7 @@ export const InputWrapper = styled.div`
 `;
 
 export const SearchingResults = styled.ul`
+  visibility:${({ isVisible }) => (isVisible ? 'visible' : 'hidden')}; ;
   z-index: 1000;\
   max-height: 400px;
   overflow-y: scroll;
@@ -43,6 +45,7 @@ export const ResultItem = styled.li`
   width: 100%;
   list-style: none;
   padding: 15px 10px;
+  background-color: ${({ isHighlightedItem, theme }) => (isHighlightedItem ? theme.colors.lightPurple : 'transparent')};
   color: ${({ theme }) => theme.colors.darkGrey};
   font-weight: bold;
   font-size: 14px;
@@ -50,7 +53,7 @@ export const ResultItem = styled.li`
   &:nth-child(1) {
     border-top: 2px solid ${({ theme }) => theme.colors.lightPurple};
   }
-
+  &:focus,
   &:hover {
     background-color: ${({ theme }) => theme.colors.lightPurple};
   }

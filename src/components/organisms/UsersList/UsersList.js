@@ -6,17 +6,20 @@ import { useParams } from 'react-router-dom';
 import useStudents from '../../../hooks/useStudents';
 
 const UsersList = () => {
-  const [isLoading, setLoadingState] = useState(null);
+  const [students, setStudents] = useState([]);
   const { id } = useParams();
-  const { students } = useStudents({ groupId: id });
+  const { getStudents } = useStudents();
 
   useEffect(() => {
-    students.length > 0 ? setLoadingState(false) : setLoadingState(true);
-  }, [students]);
+    (async () => {
+      const students = await getStudents(id);
+      setStudents(students);
+    })();
+  }, [getStudents, id]);
 
   return (
     <>
-      <Title>{isLoading ? 'Loading...' : 'Users List'}</Title>
+      <Title>Users List</Title>
       <StyledList>
         {students.map((student) => (
           <UsersListItem deleteUser={() => console.log(student)} userData={student} key={student.name} />
