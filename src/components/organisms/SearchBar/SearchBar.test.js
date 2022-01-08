@@ -3,6 +3,7 @@ import { render } from '../../../test-utils';
 import { setupServer } from 'msw/node';
 import { handlers } from '../../../mock/handlers';
 import { screen, fireEvent, waitFor } from '@testing-library/react';
+import '@testing-library/jest-dom';
 
 const server = setupServer(...handlers);
 
@@ -35,6 +36,9 @@ describe('Search bard', () => {
     fireEvent.change(input, { target: { value: '' } });
     await waitFor(() => {
       expect(screen.queryByText(/Krystyna/)).toBeNull();
+    });
+    await waitFor(() => {
+      expect(screen.queryByLabelText('results')).not.toBeVisible();
     });
   });
 });
